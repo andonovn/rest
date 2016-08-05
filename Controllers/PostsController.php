@@ -18,7 +18,7 @@ class PostsController extends BaseController
             throw new \Exception('Required placeholder id does not exists.');
         }
 
-        $id = $params[\Router::PLACEHOLDER . 'id'];
+        $id = intval($params[\Router::PLACEHOLDER . 'id']);
 
         $post = new Post($id);
 
@@ -44,7 +44,7 @@ class PostsController extends BaseController
             return;
         }
 
-        $this->response($post->toArray());
+        $this->response();
     }
 
     public function update(array $params)
@@ -82,10 +82,6 @@ class PostsController extends BaseController
         }
 
         $id = intval($params[\Router::PLACEHOLDER . 'id']);
-
-        if (!is_int($id)) {
-            $this->response(['Invalid URL.'], 404);
-        }
 
         $post = new Post($id);
 
